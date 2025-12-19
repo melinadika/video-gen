@@ -1,4 +1,5 @@
 import argparse
+import os
 from llm import generate_idea, generate_script
 from tts import generate_voice
 from subtitles import generate_subtitles
@@ -12,10 +13,12 @@ from config import PATHS
 def main(args):
     if args.idea:
         idea = generate_idea()
+        os.makedirs(os.path.dirname(PATHS['ideas']), exist_ok=True)
         open(PATHS['ideas'], "w").write(idea)
         print("Generated Ideas")
     if args.script:
         script = generate_script()
+        os.makedirs(os.path.dirname(PATHS['script']), exist_ok=True)
         open(PATHS['script'], "w").write(script)
         print("Generated Script")
     if args.tts:

@@ -1,9 +1,9 @@
 NICHE_CONFIG = {
-"niche": "Psychology facts",
+"niche": "why working at AWS is great",
 "audience": "18-35",
-"tone": "calm, curious, slightly mysterious",
-"video_length_seconds": 25,
-"cta": "Follow for more psychology facts",
+"tone": "angry, sarcastic",
+"video_length_seconds": 15,
+"cta": "Follow for more work loving content",
 }
 
 

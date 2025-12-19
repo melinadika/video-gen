@@ -1,4 +1,5 @@
-import whisper
+import json
+import os
 from config import PATHS
 
 def seconds_to_srt_time(seconds: float) -> str:
@@ -9,18 +10,20 @@ def seconds_to_srt_time(seconds: float) -> str:
     return f"{hours:02}:{minutes:02}:{secs:02},{millis:03}"
 
 def generate_subtitles():
-    model = whisper.load_model("base")
-    result = model.transcribe(
-        PATHS["audio"],
-        language="en",
-        task="transcribe",
-        word_timestamps=True
-    )
-    with open(PATHS['subs'], "w") as f:
-        for i, seg in enumerate(result["segments"]):
-            start = seconds_to_srt_time(seg["start"])
-            end = seconds_to_srt_time(seg["end"])
-
+    # Load timings from TTS
+    timings_path = PATHS['audio'].replace('.wav', '_timings.json')
+    with open(timings_path, 'r') as f:
+        timings = json.load(f)
+    
+    os.makedirs(os.path.dirname(PATHS['subs']), exist_ok=True)
+    with open(PATHS['subs'], "w", encoding='utf-8') as f:
+        for i, timing in enumerate(timings):
+            start = timing['start']
+            end = timing['end']
+            text = timing['text']
+            start_time = seconds_to_srt_time(start)
+            end_time = seconds_to_srt_time(end)
+            
             f.write(f"{i+1}\n")
-            f.write(f"{start} --> {end}\n")
-            f.write(seg["text"].strip() + "\n\n")
+            f.write(f"{start_time} --> {end_time}\n")
+            f.write(text + "\n\n")

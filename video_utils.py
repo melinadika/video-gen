@@ -3,7 +3,7 @@ import os
 from config import PATHS
 
 def assemble_video():
-    subs_path = os.path.abspath(PATHS['subs'])
+    subs_path = PATHS['subs'].replace("\\", "/")
     bg_path = os.path.abspath(PATHS['bg'])
     audio_path = os.path.abspath(PATHS['audio'])
     out_path = os.path.abspath(PATHS['video'])
