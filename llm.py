@@ -10,9 +10,12 @@ def run_llm(prompt: str) -> str:
     result = subprocess.run(
         ["ollama", "run", OLLAMA_MODEL, prompt],
         capture_output=True,
-        text=True
+        text=False
     )
-    return result.stdout.strip()
+    stdout_bytes = result.stdout or b""
+    # Decode using UTF-8 and replace invalid sequences rather than raising.
+    out = stdout_bytes.decode("utf-8", errors="replace")
+    return out.strip()
 
 
 
