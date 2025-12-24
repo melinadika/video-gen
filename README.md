@@ -3,13 +3,15 @@ FREE TikTok AI Pipeline (Single Account)
 
 
 Requirements:
-- Python 3.10+
+- Python 3.11
 - FFmpeg
 - Ollama (with mistral model)
 
 
 Install:
 - pip install openai-whisper TTS
+- pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+- pip install diffusers==0.27.2
 
 
 Usage:
